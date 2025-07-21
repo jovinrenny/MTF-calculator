@@ -5,145 +5,76 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
+    font-family: Arial, sans-serif;
+    padding: 2rem;
+    background: #f9f9f9;
 }
 
-.heading {
-    margin-bottom: 1rem;
-    color: #333;
-    font-size: 1.8rem;
-    text-align: center;
-    font-weight: bold;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+.container {
+    max-width: 500px;
+    margin: auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #ccc;
 }
 
-.main {
-    background-color: #ffffff;
-    padding: 2.5rem;
-    width: 95%;
-    max-width: 600px;
-    border-radius: 16px;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    font-size: 1.1rem;
+input, button {
+    width: 100%;
+    padding: 10px;
+    margin: 0.5rem 0;
 }
 
-#input-el {
-    width: 87%;
-    padding: 10px 20px;
-    border: 2px solid #ddd;
-    border-radius: 8px;
+input:focus {
+    border: 2px solid #007bff;
     outline: none;
-    font-size: 1rem;
-    transition: 0.2s;
+    background-color: #f0f8ff;
 }
 
-#input-el:focus {
-    border-color: #007bff;
+label {
+    display: block;
+    margin-top: 1rem;
+    font-weight: 600;
+    color: #333;
 }
 
-#add-list {
-    padding: 10px 16px;
-    margin-left: 10px;
-    border: none;
+button {
     background-color: #007bff;
     color: white;
-    font-size: 1.2rem;
+    border: none;
     border-radius: 8px;
+    font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
 }
 
-#add-list:hover {
+button:hover {
     background-color: #0056b3;
 }
 
-
-#list-items {
-    margin-top: 20px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+.output {
+    margin-top: 1rem;
+    color: #333;
+    word-wrap: break-word;
+    background: #e9f5ff;
+    padding: 1rem;
+    border-radius: 5px;
+    line-height: 1.3;
 }
 
-.todo-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #f8f9fa;
-    padding: 10px 14px;
-    border-radius: 8px;
-    border-left: 4px solid #007bff;
-}
+@media (max-width: 480px) {
+    .container {
+        padding: 1.2rem;
+        margin: 1rem;
+    }
 
+    input, button {
+        font-size: 15px;
+    }
 
-.edit-btn {
-    background: none;
-    border: none;
-    color: #007bff;
-    font-size: 1rem;
-    margin-left: 10px;
-    cursor: pointer;
-}
-
-.edit-btn:hover {
-    text-decoration: underline;
-}
-
-
-.delete-btn {
-    background: none;
-    border: none;
-    color: #dc3545;
-    font-size: 1.2rem;
-    cursor: pointer;
-}
-
-@media (max-width: 600px) {
-    body {
-        height: auto;
+    .output {
         padding: 1rem;
-    }
-
-    main {
-        height: auto;
-        padding: 1.5rem;
-    }
-
-    #input-el {
-        width: 100%;
-        margin-bottom: 10px;
-    }
-
-    #add-list {
-        width: 100%;
-        margin-left: 0;
-    }
-
-    .todo-item {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-        padding: 16px;
-        background-color: #ffffff;
-        border-left: 6px solid #007bff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-    }
-
-    .todo-item span {
-        font-size: 1rem;
-        color: #333;
-    }
-
-    .edit-btn, 
-    .delete-btn {
-        margin-left: 0;
-        font-size: 0.95rem;
+        font-size: 15px;
+        line-height: 1.5;
     }
 }

@@ -1,99 +1,29 @@
-let listArray = []
-let inputEl = document.getElementById("input-el")
-let addList = document.getElementById("add-list")
-let listItems = document.getElementById("list-items")
+function calculateSellPrice() {
+    const avgPrice = parseFloat(document.getElementById("avgBuyPrice").value)
+    const quantity = parseFloat(document.getElementById("quantity").value)
+    const daysHeld = parseFloat(document.getElementById("daysHeld").value)
+    const brokerageRate = parseFloat(document.getElementById("brokerageRate").value)
+    const targetProfit = parseFloat(document.getElementById("targetProfit").value)
 
-
-
-addList.addEventListener("click", function() {
-    if(inputEl.value.trim() !== "") {
-        listArray.push(inputEl.value)
-        saveToLocalStorage()
-        inputEl.value = ""
-        renderList()
-    } 
-})
-
-inputEl.addEventListener("keypress", function(event) {
-    if(event.key === "Enter") {
-        addList.click()
+    if(isNaN(avgPrice) || isNaN(quantity) || isNaN(daysHeld) || isNaN(brokerageRate) || isNaN(targetProfit)) {
+        alert("Please fill all fields correctly.")
+        return
     }
-})
 
-// save to local storage
+    const interestRate = daysHeld <= 15 ? 6.99 : 18
 
-function saveToLocalStorage() {
-    localStorage.setItem("todoList", JSON.stringify(listArray))
-}
+    const buyValue = avgPrice * quantity
+    const interest = (interestRate / 100) * buyValue * (daysHeld / 365)
+    const brokerage = buyValue * (brokerageRate / 100)
+    const totalCost = buyValue + interest + brokerage + targetProfit
+    const requiredSellPrice = totalCost / quantity
 
-const storedTasks = localStorage.getItem("todoList")
-if(storedTasks) {
-    listArray = JSON.parse(storedTasks)
-    renderList()
-}
-
-
-function renderList() {
-    listItems.innerHTML = ""
-
-    listArray.forEach((item,index) => {
-        const todoDiv = document.createElement("div")
-
-        todoDiv.classList.add("todo-item")
-
-        const taskText = document.createElement("span")
-
-        taskText.innerHTML = item
-
-        const checkbox = document.createElement("input")
-
-        checkbox.type = "checkbox"
-        checkbox.addEventListener("change", function() {
-            taskText.style.textDecoration = this.checked ? "line-through" : "none"
-        })
-
-        // Edit btn
-
-        const editBtn = document.createElement("button")
-        editBtn.textContent = "Edit"
-        editBtn.classList.add("edit-btn")
-
-        editBtn.addEventListener("click", function() {
-            if(editBtn.textContent === "Edit") {
-                const editInput = document.createElement("input")
-                editInput.type = "text"
-                editInput.value = taskText.textContent
-                todoDiv.replaceChild(editInput, taskText)
-                editBtn.textContent = "Save"
-            }else {
-                const updatedValue = todoDiv.querySelector("input[type='text']").value.trim()
-                if(updatedValue !== "") {
-                    listArray[index] = updatedValue
-                    saveToLocalStorage()
-                    renderList()
-                } else {
-                    alert("Task cannot be empty.")
-                }
-            }
-        })
-
-        // Delete btn
-
-        const deleteBtn = document.createElement("button")
-        deleteBtn.textContent = "x"
-        deleteBtn.classList.add("delete-btn")
-        deleteBtn.addEventListener("click", function() {
-            listArray.splice(index, 1)
-            saveToLocalStorage()
-            renderList()
-        })
-
-        todoDiv.appendChild(checkbox)
-        todoDiv.appendChild(taskText)
-        todoDiv.appendChild(editBtn)
-        todoDiv.appendChild(deleteBtn)
-        listItems.appendChild(todoDiv)
-
-    })
-    
+    document.getElementById("result").innerHTML = `
+    <div class="output">
+    <p><strong>Interest Rate Applied:</strong> ${interestRate}%</p>
+    <p><strong>Interest Charged:</strong> ₹${interest.toFixed(2)}</p>
+    <p><strong>Brokerage (${brokerageRate}%):</strong> ₹${brokerage.toFixed(2)}</p>
+    <p><strong>Total Buy Value:</strong> ₹${buyValue.toFixed(2)}</p>
+    <p><strong>Sell Price:</strong> ₹${requiredSellPrice.toFixed(2)}</p>
+    </div>`
 }
