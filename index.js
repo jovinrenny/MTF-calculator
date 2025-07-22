@@ -14,8 +14,10 @@ function calculateSellPrice() {
 
     const buyValue = avgPrice * quantity
     const interest = (interestRate / 100) * buyValue * (daysHeld / 365)
-    const brokerage = buyValue * (brokerageRate / 100)
-    const totalCost = buyValue + interest + brokerage + targetProfit
+    const sellingValue = buyValue + interest + targetProfit
+    const brokerage = sellingValue * (brokerageRate / 100)
+    const totalCost = sellingValue + brokerage
+    
     const requiredSellPrice = totalCost / quantity
 
     document.getElementById("result").innerHTML = `
